@@ -31,6 +31,18 @@ class Chat extends React.Component{
 
         }
     }
+
+    scrollToBottom = () => {
+      this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    componentDidMount() {
+      this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+      this.scrollToBottom();
+    }
     render(){
       return (
         <div className="main-chat-div">
@@ -39,12 +51,16 @@ class Chat extends React.Component{
               Global Chat
             </div>
             <hr/>
-            <div>
+            <div className="chat-content">
               {this.state.messages.map(message => {
               return (
-                <div>{message.author}: {message.message}</div>
+                <div>
+                  <span className="author">{message.author}</span>: {message.message}
+                </div>
               )
               })}
+              <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}>
+              </div>
             </div>
           </div>
           <div>
